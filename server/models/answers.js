@@ -15,7 +15,7 @@ module.exports = {
     const queryString = `INSERT INTO answers
     (question_id, body, date_written, answerer_name, answerer_email, reported, helpful)
     VALUES
-    (${question_id}, ${body}, CURRENT_TIMESTAMP, ${name}, ${email}, false, 0);`;
+    (${question_id}, ${body}, CURRENT_TIMESTAMP, ${name}, ${email}, false, 0);`
     db.query(queryString, (err, result) => {
       if (err) {
         cb(err, null);
