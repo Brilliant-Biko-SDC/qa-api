@@ -1,5 +1,3 @@
-CREATE DATABASE qa;
-
 DROP TABLE IF EXISTS questions, answers, photos CASCADE;
 
 CREATE TABLE questions (

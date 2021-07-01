@@ -1,7 +1,7 @@
 const db = require('../../database');
 
 module.exports = {
-  get: (product_id, count, page, cb) => {
+  get: (product_id, count = 5, page = 1, cb) => {
     const queryString = `SELECT * FROM questions WHERE product_id = ${product_id} AND reported = false LIMIT ${count};`;
     db.query(queryString, (err, result) => {
       if (err) {
@@ -15,8 +15,9 @@ module.exports = {
     const queryString = `INSERT INTO questions
     (product_id, body, date_written, asker_name, asker_email, reported, helpful)
     VALUES
-    (${product_id}, ${body}, CURRENT_TIMESTAMP, ${name}, ${email}, false, 0);`;
-    db.query(queryString, (err, result) => {
+    ($1, $2, CURRENT_TIMESTAMP, $3, $4, false, 0);`
+    const arguments = [product_id, body, name, email]
+    db.query(queryString, arguments, (err, result) => {
       if (err) {
         cb(err, null);
       } else {
