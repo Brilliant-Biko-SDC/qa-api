@@ -3,7 +3,7 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.get('/questions/?product_id=', controller.questions.get);
+router.get('/questions/:productid', controller.questions.get);
 
 router.post('/questions/:questionid', controller.questions.post);
 

@@ -2,15 +2,17 @@ const models = require('../models');
 
 module.exports = {
   get: (req, res) => {
-    const { questionid: id } = req.params
-    const { count, page } = req.query
-
-    models.answers.get(id, count, page, (err, data) => {
+    const question_id = req.params.questionid;
+    const count = req.query.count || 5;
+    const page = req.query.page || 1;
+    models.answers.get(question_id, count, page, (err, data) => {
       if (err) {
         res.status(404).send(err);
       } else {
         const formattedData = {
-          question_id: id,
+          count: count,
+          page: page,
+          question_id: question_id,
           results: data.rows
         }
         res.send(formattedData);
@@ -31,7 +33,7 @@ module.exports = {
       if (err) {
         res.status(404).send(err);
       } else {
-        res.status(204).send(data);
+        res.send(data);
       }
     });
   },
@@ -40,9 +42,8 @@ module.exports = {
       if (err) {
         res.status(404).send(err);
       } else {
-        res.status(204).send(data);
+        res.send(data);
       }
     });
   },
 };
-
